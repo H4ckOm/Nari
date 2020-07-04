@@ -16,6 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^0.1.9
 
 flutter:
   uses-material-design: true
@@ -32,3 +33,7 @@ flutter:
           style: italic
         - asset: fonts/Segoe-UI-Italic.ttf
           style: italic
+
+flutter_native_splash:
+  image: assets/logo/200x200.png
+  color: "ffffff"
