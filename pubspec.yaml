@@ -20,6 +20,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/logo/64x64.png
-    - assets/logo/128x128.png
-    - assets/logo/256x256.png
+    - assets/logo/
+  fonts:
+    - family: SegoeUI
+      fonts:
+        - asset: fonts/Segoe-UI.ttf
+        - asset: fonts/Segoe-UI-Bold.ttf
+          weight: 700
+        - asset: fonts/Segoe-UI-Bold Italic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/Segoe-UI-Italic.ttf
+          style: italic
