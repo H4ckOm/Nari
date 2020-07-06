@@ -23,7 +23,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo/
-    - assets/
+    - assets/bg/
 
 flutter_native_splash:
   image: assets/logo/200x200.png

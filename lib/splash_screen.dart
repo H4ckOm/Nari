@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.fill,
           placeholder: MemoryImage(kTransparentImage),
-          image: AssetImage('assets/bg_1@4x.png'),
+          image: AssetImage('assets/bg/bg_1@4x.png'),
           fadeInCurve: Curves.fastOutSlowIn,
           fadeOutDuration: Duration(milliseconds: 1),
         );
