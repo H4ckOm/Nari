@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -11,9 +13,13 @@ class _SplashScreenState extends State<SplashScreen>
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
 
+  // TODO: Modify these dummy URLs
+  static const _PrPurl = "https://nari.app/privacy-policy.html";
+  static const _ToSurl = "https://nari.app/terms-of-service.html";
+
   // description text
   final descText =
-      '\nWe are NARI - a well-informed community determined to help each other'
+      '\nWe are NARI – a well-informed community determined to help each other'
       'grow emotionally and economically stronger and more powerful.\n\n';
 
   // various parameters to control animated widgets
@@ -43,14 +49,13 @@ class _SplashScreenState extends State<SplashScreen>
       // set state to trigger other animated widgets
       setState(() {
         _bgWidget = FadeInImage(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.fill,
-          placeholder: MemoryImage(kTransparentImage),
-          image: AssetImage('assets/bg/bg_1@4x.png'),
-          fadeInCurve: Curves.fastOutSlowIn,
-          fadeOutDuration: Duration(milliseconds: 1),
-        );
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.fill,
+            placeholder: MemoryImage(kTransparentImage),
+            image: AssetImage('assets/bg/bg_1@4x.png'),
+            fadeInCurve: Curves.fastOutSlowIn,
+            fadeOutDuration: Duration(milliseconds: 1));
         _bgcolor = Color(0xFFF7F7F7);
         _top = -320.0;
         _shadow = BoxShadow(
@@ -60,11 +65,10 @@ class _SplashScreenState extends State<SplashScreen>
       // display welcome text when the other widgets have finished loading
       Future.delayed(Duration(seconds: 1), () {
         setState(() => _wlcmOpacity = 1.0);
-        Future.delayed(Duration(seconds: 1), () {
+        Future.delayed(Duration(milliseconds: 700), () {
           setState(() => _descOpacity = 1.0);
-          Future.delayed(Duration(seconds: 1), () {
-            setState(() => _bttnOpacity = 1.0);
-          });
+          Future.delayed(
+              Duration(seconds: 1), () => setState(() => _bttnOpacity = 1.0));
         });
       });
     });
@@ -99,9 +103,7 @@ class _SplashScreenState extends State<SplashScreen>
                   decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
-                      boxShadow: [
-                        _shadow,
-                      ]),
+                      boxShadow: [_shadow]),
                 ),
               ),
               duration: Duration(seconds: 1),
@@ -168,7 +170,7 @@ class _SplashScreenState extends State<SplashScreen>
                               fontSize: 20,
                               fontWeight: FontWeight.w500),
                         ),
-                        curve: Curves.fastOutSlowIn),
+                        curve: Curves.easeIn),
 
                     // Join Us Button
 
@@ -176,10 +178,9 @@ class _SplashScreenState extends State<SplashScreen>
                         opacity: _bttnOpacity,
                         duration: Duration(seconds: 1),
                         child: RaisedButton(
-                          onPressed: () {
-                            // TODO: redirect to sign up/login screen
-                            print('redirect karo ise');
-                          },
+                          onPressed: () =>
+                              // TODO: redirect to sign up/login screen
+                              print('redirect karo ise'),
                           shape: StadiumBorder(),
                           color: Colors.white,
                           child: Padding(
@@ -195,43 +196,39 @@ class _SplashScreenState extends State<SplashScreen>
                         ),
                         curve: Curves.fastOutSlowIn),
 
-                    // Privacy Policy Link
+                    // ToS and Privacy Policy Links
 
                     AnimatedOpacity(
                       opacity: _bttnOpacity,
                       duration: Duration(seconds: 2),
                       curve: Curves.easeInOut,
-                      child: InkWell(
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text: '\n\nBy joining you agree to our\n',
-                              style: TextStyle(color: Color(0xFF8C3048)),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: 'terms of service',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ' and '),
-                                TextSpan(
-                                    text: 'privacy policy',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: '.')
-                              ],
-                            ),
+                      child: Text.rich(
+                          TextSpan(
+                            text: '\n\nBy joining, you agree to our\n',
+                            style: TextStyle(color: Color(0xFF8C3048)),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Terms of Service',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => launch(_ToSurl)),
+                              TextSpan(text: ' and '),
+                              TextSpan(
+                                  text: 'Privacy Policy',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => launch(_PrPurl)),
+                              TextSpan(text: '.')
+                            ],
                           ),
-                          onTap: () {
-                            // TODO: show privacy policy
-                            print('chull machi hai');
-                          }),
+                          textAlign: TextAlign.center),
                     ),
 
                     //
                   ],
                 ),
                 alignment: Alignment.center),
-          ),
+          )
         ],
       ),
     );
