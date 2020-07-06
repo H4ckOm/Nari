@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'SegoeUI'),
+        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Segoe UI'),
         home: MyHomePage(title: 'Flutter Demo Home Page'));
   }
 }

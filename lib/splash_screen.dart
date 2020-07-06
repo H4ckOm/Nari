@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,36 +11,20 @@ class _SplashScreenState extends State<SplashScreen>
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
 
+  // description text
   final descText =
-      '\nWe are NARI - a well-informed community determined to help each other grow emotionally and economically stronger and more powerful.\n\n';
+      '\nWe are NARI - a well-informed community determined to help each other'
+      'grow emotionally and economically stronger and more powerful.\n\n';
 
-  Widget logo({Color backgroundColor: Colors.white}) {
-    return Center(
-      child: AnimatedContainer(
-          child: CircleAvatar(
-              backgroundImage: AssetImage('assets/logo/512x512.png'),
-              radius: 100,
-              backgroundColor: backgroundColor),
-          height: 200,
-          width: 200,
-          decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
-            new BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.16),
-                blurRadius: 6.0,
-                offset: const Offset(0, 3))
-          ]),
-          duration: Duration(seconds: 1),
-          curve: Curves.fastOutSlowIn),
-    );
-  }
-
-  var _color = Colors.white;
+  // various parameters to control animated widgets
   var _top = -275.0;
-  var _shadow = new BoxShadow(color: Colors.transparent);
+  var _shadow = BoxShadow(color: Colors.transparent);
   var _wlcmOpacity = 0.0;
   var _bgcolor = Colors.white;
   var _descOpacity = 0.0;
   var _bttnOpacity = 0.0;
+
+  Widget _bgWidget = Container();
 
   @override
   void initState() {
@@ -55,30 +40,30 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward().whenComplete(() {
       // logo has reached its final position
 
-      // change state to trigger other animated widgets
+      // set state to trigger other animated widgets
       setState(() {
+        _bgWidget = FadeInImage(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.fill,
+          placeholder: MemoryImage(kTransparentImage),
+          image: AssetImage('assets/bg_1@4x.png'),
+          fadeInCurve: Curves.fastOutSlowIn,
+          fadeOutDuration: Duration(milliseconds: 1),
+        );
         _bgcolor = Color(0xFFF7F7F7);
-        _color = Color(0xFF70307C);
         _top = -320.0;
-        _shadow = new BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.32),
-            blurRadius: 12.0,
-            offset: const Offset(0, 3));
+        _shadow = BoxShadow(
+            color: Color(0x52000000), blurRadius: 12.0, offset: Offset(0, 3));
       });
 
       // display welcome text when the other widgets have finished loading
-      Future.delayed(const Duration(seconds: 1), () {
-        setState(() {
-          _wlcmOpacity = 1.0;
-        });
-        Future.delayed(const Duration(seconds: 1), () {
-          setState(() {
-            _descOpacity = 1.0;
-          });
-          Future.delayed(const Duration(milliseconds: 1500), () {
-            setState(() {
-              _bttnOpacity = 1.0;
-            });
+      Future.delayed(Duration(seconds: 1), () {
+        setState(() => _wlcmOpacity = 1.0);
+        Future.delayed(Duration(seconds: 1), () {
+          setState(() => _descOpacity = 1.0);
+          Future.delayed(Duration(seconds: 1), () {
+            setState(() => _bttnOpacity = 1.0);
           });
         });
       });
@@ -97,13 +82,11 @@ class _SplashScreenState extends State<SplashScreen>
       child: Stack(
         children: <Widget>[
           //
-          // Background Container (Pink)
+          // Background Widget (having image)
 
-          AnimatedContainer(
-              decoration: BoxDecoration(color: _color),
-              duration: Duration(seconds: 1),
-              curve: Curves.fastOutSlowIn),
-          //
+          Container(color: Colors.white),
+          _bgWidget,
+
           // Circular Container (White)
 
           AnimatedPositioned(
@@ -123,13 +106,30 @@ class _SplashScreenState extends State<SplashScreen>
               ),
               duration: Duration(seconds: 1),
               curve: Curves.fastOutSlowIn),
-          //
+
           // Logo
 
           SlideTransition(
-              position: _offsetAnimation,
-              child: logo(backgroundColor: _bgcolor)),
-          //
+            position: _offsetAnimation,
+            child: Center(
+              child: AnimatedContainer(
+                  child: CircleAvatar(
+                      backgroundImage: AssetImage('assets/logo/512x512.png'),
+                      radius: 100,
+                      backgroundColor: _bgcolor),
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                    BoxShadow(
+                        color: Color(0x29000000),
+                        blurRadius: 6.0,
+                        offset: Offset(0, 3))
+                  ]),
+                  duration: Duration(seconds: 1),
+                  curve: Curves.fastOutSlowIn),
+            ),
+          ),
+
           // Secondary Widgets (Less Animated)
 
           Positioned(
@@ -149,9 +149,9 @@ class _SplashScreenState extends State<SplashScreen>
                         child: Text(
                           "Welcome!",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Color(0xFF92424F),
                               fontSize: 32,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.w600),
                         ),
                         curve: Curves.fastOutSlowIn),
 
@@ -164,9 +164,9 @@ class _SplashScreenState extends State<SplashScreen>
                           descText,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Color(0xFF8C3048),
                               fontSize: 20,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.w500),
                         ),
                         curve: Curves.fastOutSlowIn),
 
@@ -184,12 +184,12 @@ class _SplashScreenState extends State<SplashScreen>
                           color: Colors.white,
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(8, 4, 8, 8),
-                            child: const Text(
+                            child: Text(
                               'Join Us',
                               style: TextStyle(
                                   fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF70307c)),
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF92424F)),
                             ),
                           ),
                         ),
@@ -201,9 +201,26 @@ class _SplashScreenState extends State<SplashScreen>
                       opacity: _bttnOpacity,
                       duration: Duration(seconds: 2),
                       curve: Curves.easeInOut,
-                      child: new InkWell(
-                          child: Text('\n\nRead our privacy policy.',
-                              style: TextStyle(color: Colors.white)),
+                      child: InkWell(
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: '\n\nBy joining you agree to our\n',
+                              style: TextStyle(color: Color(0xFF8C3048)),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'terms of service',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                TextSpan(text: ' and '),
+                                TextSpan(
+                                    text: 'privacy policy',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                TextSpan(text: '.')
+                              ],
+                            ),
+                          ),
                           onTap: () {
                             // TODO: show privacy policy
                             print('chull machi hai');

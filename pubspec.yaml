@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.3
+  transparent_image: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -22,17 +23,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo/
-  fonts:
-    - family: SegoeUI
-      fonts:
-        - asset: fonts/Segoe-UI.ttf
-        - asset: fonts/Segoe-UI-Bold.ttf
-          weight: 700
-        - asset: fonts/Segoe-UI-Bold Italic.ttf
-          weight: 700
-          style: italic
-        - asset: fonts/Segoe-UI-Italic.ttf
-          style: italic
+    - assets/
 
 flutter_native_splash:
   image: assets/logo/200x200.png
