@@ -19,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   // description text
   final descText =
-      '\nWe are NARI – a well-informed community determined to help each other'
-      'grow emotionally and economically stronger and more powerful.\n\n';
+      '\nWe are NARI – a well-informed community determined to help each other '
+      'grow emotionally stronger and more powerful.\n\n';
 
   // various parameters to control animated widgets
   var _top = -275.0;
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
             image: AssetImage('assets/bg/bg_1@4x.png'),
             fadeInCurve: Curves.fastOutSlowIn,
             fadeOutDuration: Duration(milliseconds: 1));
-        _bgcolor = Color(0xFFF7F7F7);
+        _bgcolor = Color(0xFFFBFBFB);
         _top = -320.0;
         _shadow = BoxShadow(
             color: Color(0x52000000), blurRadius: 12.0, offset: Offset(0, 3));

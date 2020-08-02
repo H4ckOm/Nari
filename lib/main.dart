@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nari/mood_tracker.dart';
 import 'package:nari/splash_screen.dart';
 import 'package:flutter/services.dart';
 
@@ -27,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: new SplashScreen());
+    // return Scaffold(body: SplashScreen());
+    return Scaffold(body: FeelingSlider());
   }
 }
