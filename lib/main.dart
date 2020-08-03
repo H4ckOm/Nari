@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nari/mood_tracker.dart';
+import 'package:nari/places_search_map.dart';
 import 'package:nari/splash_screen.dart';
 import 'package:flutter/services.dart';
 
@@ -29,6 +30,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // return Scaffold(body: SplashScreen());
-    return Scaffold(body: FeelingSlider());
+    // return Scaffold(body: FeelingSlider());
+    return Scaffold(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: PlacesSearchMapSample('police'),
+      ),
+    );
   }
 }

@@ -15,6 +15,9 @@ dependencies:
   transparent_image: ^1.0.0
   url_launcher: ^5.4.11
   google_fonts: ^1.1.0
+  google_maps_flutter: ^0.5.28+1
+  geolocator: ^5.3.2+2
+  location: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +30,10 @@ flutter:
     - assets/logo/
     - assets/bg/
     - assets/emojis/
+  fonts:
+    - family: app_icons
+      fonts:
+        - asset: fonts/app_icons.ttf
 
 flutter_native_splash:
   image: assets/logo/200x200.png
