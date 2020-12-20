@@ -29,10 +29,3 @@ Hosting: GitHub, Heroku
 #### Contribute
 Create a pull request mentioning the changes and upgrades that can be made to the application and also mention the benefits of that update. 🍉
 
-#### Contributors 🐱‍💻
-- [Mayank Goyal](https://github.com/heromayank2)
-- [Pranjal Agrawal](https://github.com/pranjal1127)
-- [Akshra Gupta]()
-- [Omkar Deshmukh](https://github.com/h4ckom/)
-- [Divyansh Singh](https://github.com/brc-dd)
-- [Apurva Jain](https://github.com/apurvajain10)
